@@ -1,31 +1,28 @@
 package com.stonks.historicdata.bar;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-
 @Entity
+@Table(
+    uniqueConstraints =
+        @UniqueConstraint(
+            columnNames = {"symbol", "time"},
+            name = "DateSymbolNotUnique"))
 @Data
 @NoArgsConstructor
 public class Bar {
 
-    @Id
-    @GeneratedValue
-    private Long barId;
-
-    @NotNull
-    private String symbol;
-
-    private OffsetDateTime time;
-    private BigDecimal open;
-    private BigDecimal close;
-    private BigDecimal high;
-    private BigDecimal low;
-    private Long volume;
+  @Id @GeneratedValue private Long barId;
+  @NotNull private String symbol;
+  @NotNull private OffsetDateTime time;
+  @NotNull private BigDecimal open;
+  @NotNull private BigDecimal close;
+  @NotNull private BigDecimal high;
+  @NotNull private BigDecimal low;
+  @NotNull private Long volume;
 }
